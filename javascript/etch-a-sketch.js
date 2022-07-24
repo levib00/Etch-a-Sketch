@@ -3,7 +3,6 @@ let squareDimensions = 700/gridSize;
 let squareSquared = gridSize*gridSize;
 let screen = document.getElementById("screen");
 let gridText = document.getElementById("grid-size")
-let squareColor = true;
 
 function fillGrid(gridSize) {
     squareDimensions = 700/gridSize;
@@ -17,23 +16,23 @@ function fillGrid(gridSize) {
     }
 
 }
+
 fillGrid(gridSize)
-function generateColors(redValue, blueValue, greenValue) {
-    redValue = Math.floor(Math.random() * 256)
-    greenValue = Math.floor(Math.random() * 256)
-    blueValue = Math.floor(Math.random() * 256)
-}
+
+let squareColor = false;
 
 function setRainbow() {
     squareColor = true;
     console.log(squareColor)
     return squareColor
 }
+
 function setBlack() {
     squareColor = false;
     console.log(squareColor)
     return squareColor
 }
+
 const rainbowBtn = document.getElementById("rainbow")
 rainbowBtn.addEventListener("click", setRainbow)
 
@@ -44,26 +43,21 @@ function setColorLogic() {
     if (squareColor == false) {
         console.log(this.id)
         document.getElementById(`${this.id}`).style.backgroundColor = `black`
-        }
-        else {
-            console.log(this.id)
+    }
+    else {
+        console.log(this.id)
         redValue = Math.floor(Math.random() * 256)
         greenValue = Math.floor(Math.random() * 256)
         blueValue = Math.floor(Math.random() * 256)
-        generateColors(redValue, blueValue, greenValue)
         document.getElementById(`${this.id}`).style.backgroundColor = `rgb(${redValue}, ${greenValue}, ${blueValue})`
-        }
+    }
 }
 
-
 function makeSquare(gridSquare) {
-
     gridSquare.style.width = `${squareDimensions}px`;
     gridSquare.style.height = `${squareDimensions}px`;
-    gridSquare.style.color = "black";
     gridSquare.addEventListener("mouseenter", setColorLogic)
     screen.appendChild(gridSquare);
-    
 }
 
 const resizeBtn = document.getElementById("resize-button")
@@ -72,12 +66,6 @@ resizeBtn.addEventListener("click", resizeGrid)
 const clearBtn = document.getElementById("clear")
 clearBtn.addEventListener("click", clearGrid)
 
-
-
-
-//TODO have to remove all squares from the grid when clear
-//button is pressed. can use that same function when i need
-//to remove all of them to resize the grid.
 function removeSquares() {
     while (screen.lastElementChild) {
         screen.removeChild(screen.lastElementChild);
@@ -90,7 +78,6 @@ function resizeGrid() {
         gridSize = prompt("How Many Squares across would you like your grid to be? (max 100)")
     }
     fillGrid(gridSize)
-    return gridSize
 }
 
 function clearGrid() {
