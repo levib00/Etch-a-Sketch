@@ -7,22 +7,24 @@ body {
     color: aliceblue;
 }
 .title-box {
-    height: 100px;
+    height: 125px;
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 30px
+    gap: 32px
 }
 .title {
     font-size: 32px;
     padding-top: 30px ;
+}
+#grid-size {
+    font-size: 22px;
 }
 #screen {
     width: 700px;
     height: 700px;
     display: flex;
     flex-wrap: wrap;
-    
     background-color: white;
     border: 5px solid black;
 }
@@ -38,5 +40,5 @@ button {
     font-size: 18px;
 }
 .squares {
-    background-color: black;
+    background-color:black
 }

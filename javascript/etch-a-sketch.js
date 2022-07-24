@@ -2,25 +2,66 @@ let gridSize = 16;
 let squareDimensions = 700/gridSize;
 let squareSquared = gridSize*gridSize;
 let screen = document.getElementById("screen");
+let gridText = document.getElementById("grid-size")
+let squareColor = true;
 
-function fillGrid() {
-    
-for (let i = 0; i < squareSquared; i++) {
-    let gridSquare = document.createElement("div");
-    makeSquare(gridSquare)
-}
-}
-fillGrid()
-
-function makeSquare(gridSquare) {
+function fillGrid(gridSize) {
     squareDimensions = 700/gridSize;
     squareSquared = gridSize*gridSize;
+    gridText.innerText = `${gridSize}x${gridSize}`
+    for (let i = 0; i < squareSquared; i++) {
+        let gridSquare 
+        gridSquare = document.createElement("div");
+        gridSquare.setAttribute('id', `div${i}`)
+        makeSquare(gridSquare)
+    }
+
+}
+fillGrid(gridSize)
+function generateColors(redValue, blueValue, greenValue) {
+    redValue = Math.floor(Math.random() * 256)
+    greenValue = Math.floor(Math.random() * 256)
+    blueValue = Math.floor(Math.random() * 256)
+}
+
+function setRainbow() {
+    squareColor = true;
+    console.log(squareColor)
+    return squareColor
+}
+function setBlack() {
+    squareColor = false;
+    console.log(squareColor)
+    return squareColor
+}
+const rainbowBtn = document.getElementById("rainbow")
+rainbowBtn.addEventListener("click", setRainbow)
+
+const blackBtn = document.getElementById("black")
+blackBtn.addEventListener("click", setBlack)
+
+function setColorLogic() {
+    if (squareColor == false) {
+        console.log(this.id)
+        document.getElementById(`${this.id}`).style.backgroundColor = `black`
+        }
+        else {
+            console.log(this.id)
+        redValue = Math.floor(Math.random() * 256)
+        greenValue = Math.floor(Math.random() * 256)
+        blueValue = Math.floor(Math.random() * 256)
+        generateColors(redValue, blueValue, greenValue)
+        document.getElementById(`${this.id}`).style.backgroundColor = `rgb(${redValue}, ${greenValue}, ${blueValue})`
+        }
+}
+
+
+function makeSquare(gridSquare) {
+
     gridSquare.style.width = `${squareDimensions}px`;
     gridSquare.style.height = `${squareDimensions}px`;
     gridSquare.style.color = "black";
-    gridSquare.addEventListener("mouseenter", function() {
-        gridSquare.classList.add("squares")
-    })
+    gridSquare.addEventListener("mouseenter", setColorLogic)
     screen.appendChild(gridSquare);
     
 }
@@ -31,6 +72,9 @@ resizeBtn.addEventListener("click", resizeGrid)
 const clearBtn = document.getElementById("clear")
 clearBtn.addEventListener("click", clearGrid)
 
+
+
+
 //TODO have to remove all squares from the grid when clear
 //button is pressed. can use that same function when i need
 //to remove all of them to resize the grid.
@@ -39,17 +83,19 @@ function removeSquares() {
         screen.removeChild(screen.lastElementChild);
       }
 }
-
-function clearGrid() {
-    removeSquares()
-    i = 0
-    fillGrid()
-}
-function resizeGrid(gridSize) {
+function resizeGrid() {
     removeSquares()
     gridSize = prompt("How Many Squares across would you like your grid to be? (max 100)")
-    if (gridSize > 100) {
+    if (gridSize > 100 || gridSize < 1) {
         gridSize = prompt("How Many Squares across would you like your grid to be? (max 100)")
     }
+    fillGrid(gridSize)
+    return gridSize
+}
+
+function clearGrid() {
+    console.log(gridSize)
+    removeSquares()
+    i = 0
     fillGrid(gridSize)
 }
